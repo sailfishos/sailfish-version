@@ -11,6 +11,11 @@ BuildRequires: lipstick-jolla-home-qt5, store-client
 BuildRequires: jolla-camera, jolla-contacts, voicecall-ui-jolla
 BuildRequires: jolla-gallery, jolla-messages, jolla-mediaplayer
 BuildRequires: jolla-sessions-qt5, jolla-keyboard, sailfish-browser
+BuildRequires: jolla-firstsession
+# core MW
+BuildRequires: bluez-configs-sailfish, buteo-mtp, buteo-sync-plugins-qt5
+BuildRequires: qt5-plugin-bearer-connman, connman-configs-sailfish
+BuildRequires: ohm, alsa-plugins-pulseaudio, ofono, connman, bluez
 
 %if 0%{?_obs_build_project:1}
 %define _build_flavour %(echo %{_obs_build_project} | awk -F : '{if (NF == 3) print $3; else if (NF == 2) print strdevel; else print strunknown}' strdevel=devel strunknown=unknown)
@@ -31,6 +36,7 @@ BuildRequires: jolla-sessions-qt5, jolla-keyboard, sailfish-browser
 %config %{_sysconfdir}/os-release
 %config %{_sysconfdir}/profile.d/sailfish-version.sh
 %{_datadir}/%{name}/packagelist
+%{_bindir}/version
 
 
 %prep
@@ -60,3 +66,4 @@ HOME_URL="https://sailfishos.org/"
 EOF
 ln -s %{_sysconfdir}/sailfish-release %{buildroot}/%{_sysconfdir}/os-release
 install -m 644 -D sailfish-version.sh %{buildroot}/%{_sysconfdir}/profile.d/sailfish-version.sh
+install -m 755 -D version %{buildroot}/%{_bindir}/version

@@ -1,0 +1,35 @@
+#!/bin/bash
+
+RET=0
+
+case $1 in
+    "--verify")
+        if [ -f /usr/share/sailfish-version/packagelist ]; then
+            for i in `cat /usr/share/sailfish-version/packagelist`; do
+                rpm -q $i > /dev/null 2>&1
+                if [ $? -ne 0 ]; then
+                    PACKAGE=`echo $i | awk -F - '{ OFS="-"; $NF=""; $(NF-1)=""; print }' | sed 's/-*$//'`
+                    IPACKAGE=`rpm -q $PACKAGE`
+                    echo -e "+ $i\n- $IPACKAGE"
+                    RET=255
+                fi
+            done
+        fi
+        if [ $RET -ne 0 ]; then
+            . /etc/os-release
+            echo
+            echo "One ore more packages are not at the expected version for $PRETTY_NAME"
+            echo "(+ = expected version, - = installed version)"
+        fi
+        ;;
+    *)
+        if [ -f /etc/os-release ]; then
+            . /etc/os-release
+            echo $PRETTY_NAME
+        else
+            echo "release file does not exist"
+        fi
+        ;;
+esac
+
+exit $RET
