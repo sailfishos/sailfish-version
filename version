@@ -3,6 +3,9 @@
 RET=0
 
 case $1 in
+    "--dup")
+        pkcon upgrade-system sailfish default
+        ;;
     "--verify")
         if [ -f /usr/share/sailfish-version/packagelist ]; then
             for i in `cat /usr/share/sailfish-version/packagelist`; do

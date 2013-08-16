@@ -1,7 +1,18 @@
+%if 0%{?_obs_build_project:1}
+%define _build_flavour %(echo %{_obs_build_project} | awk -F : '{if (NF == 3) print $3; else if (NF == 2) print strdevel; else print strunknown}' strdevel=devel strunknown=unknown)
+%else
+%define _build_flavour unknown
+%endif
+
+# needs to match the prjconf in pj:tools
+%define _obs_build_count %(echo %{release} | awk -F . '{if (NF >= 3) print $3; else print $1 }')
+%define _obs_commit_count %(echo %{release} | awk -F . '{if (NF >= 2) print $2; else print $1 }')
+
+
 Name: sailfish-version
 Version: 0.0.1
 Release: 1
-Summary: Version of Sailfish
+Summary: SailfishOS %{version}.%{_obs_build_count} (%{_target_cpu},%{_build_flavour})
 Group: System/Libraries
 License: TBD
 Source: %{name}-%{version}.tar.gz
@@ -17,18 +28,9 @@ BuildRequires: bluez-configs-sailfish, buteo-mtp, buteo-sync-plugins-qt5
 BuildRequires: qt5-plugin-bearer-connman, connman-configs-sailfish
 BuildRequires: ohm, alsa-plugins-pulseaudio, ofono, connman, bluez
 
-%if 0%{?_obs_build_project:1}
-%define _build_flavour %(echo %{_obs_build_project} | awk -F : '{if (NF == 3) print $3; else if (NF == 2) print strdevel; else print strunknown}' strdevel=devel strunknown=unknown)
-%else
-%define _build_flavour unknown
-%endif
-
-# needs to match the prjconf in pj:tools
-%define _obs_build_count %(echo %{release} | awk -F . '{if (NF >= 3) print $3; else print $1 }')
-%define _obs_commit_count %(echo %{release} | awk -F . '{if (NF >= 2) print $2; else print $1 }')
 
 %description
-%{summary}.
+SailfishOS core, version %{version}.%{_obs_build_count} for %{_target_cpu} platform.
 
 %files
 %defattr(-,root,root,-)
