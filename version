@@ -4,7 +4,9 @@ RET=0
 
 case $1 in
     "--dup")
-        pkcon upgrade-system sailfish default
+        pkcon refresh
+        MODEL=`ssu model -s | tr '[A-Z]' '[a-z]' | sed 's/ /_/g'`
+        pkcon upgrade-system jolla-configuration-$MODEL complete
         ;;
     "--verify")
         if [ -f /usr/share/sailfish-version/packagelist ]; then
