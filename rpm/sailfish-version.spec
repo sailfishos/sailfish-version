@@ -22,11 +22,13 @@ BuildRequires: lipstick-jolla-home-qt5, store-client
 BuildRequires: jolla-camera, jolla-contacts, voicecall-ui-jolla
 BuildRequires: jolla-gallery, jolla-messages, jolla-mediaplayer
 BuildRequires: jolla-sessions-qt5, jolla-keyboard, sailfish-browser
-BuildRequires: jolla-firstsession
+BuildRequires: jolla-firstsession, jolla-vault
 # core MW
 BuildRequires: bluez-configs-sailfish, buteo-mtp, buteo-sync-plugins-qt5
 BuildRequires: qt5-plugin-bearer-connman, connman-configs-sailfish
-BuildRequires: ohm, alsa-plugins-pulseaudio, ofono, connman, bluez
+BuildRequires: ohm, alsa-plugins-pulseaudio, connman, bluez
+# currently different ofono for boston, so exclude
+# BuildRequires: ofono
 
 
 %description
