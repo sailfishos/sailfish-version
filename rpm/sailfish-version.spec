@@ -29,6 +29,8 @@ BuildRequires: qt5-plugin-bearer-connman, connman-configs-sailfish
 BuildRequires: ohm, alsa-plugins-pulseaudio, connman, bluez
 # currently different ofono for boston, so exclude
 # BuildRequires: ofono
+BuildRequires: PackageKit
+Requires: PackageKit
 
 
 %description
