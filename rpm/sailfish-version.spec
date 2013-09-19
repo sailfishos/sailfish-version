@@ -19,6 +19,8 @@ Source: %{name}-%{version}.tar.gz
 BuildRequires: rpm
 BuildRequires: ssu, ssu-vendor-data-jolla
 BuildRequires: lipstick-jolla-home-qt5, store-client
+BuildRequires: jolla-settings-system, jolla-settings-networking, jolla-settings-bluetooth
+BuildRequires: jolla-settings-accounts, jolla-settings-transferui-qt5
 BuildRequires: jolla-camera, jolla-contacts, voicecall-ui-jolla
 BuildRequires: jolla-gallery, jolla-messages, jolla-mediaplayer
 BuildRequires: jolla-sessions-qt5, jolla-keyboard, sailfish-browser
