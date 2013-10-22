@@ -46,6 +46,16 @@ SailfishOS core, version %{version}.%{_obs_build_count} for %{_target_cpu} platf
 %{_datadir}/%{name}/packagelist
 %{_bindir}/version
 
+%package doc
+Summary: SailfishOS %{version}.%{_obs_build_count} (%{_target_cpu},%{_build_flavour})
+Group: System/Libraries
+
+%description doc
+%{summary}.
+
+%files doc
+%defattr(-,root,root,-)
+%doc %{_datadir}/doc/SailfishOS
 
 %prep
 %setup -q
@@ -75,3 +85,7 @@ EOF
 ln -s %{_sysconfdir}/sailfish-release %{buildroot}/%{_sysconfdir}/os-release
 install -m 644 -D sailfish-version.sh %{buildroot}/%{_sysconfdir}/profile.d/sailfish-version.sh
 install -m 755 -D version %{buildroot}/%{_bindir}/version
+
+mkdir -p %{buildroot}/%{_datadir}/doc/SailfishOS
+cp %{buildroot}/%{_datadir}/%{name}/packagelist %{buildroot}/%{_sysconfdir}/sailfish-release %{buildroot}/%{_datadir}/doc/SailfishOS/
+rpm -qa | sort > %{buildroot}/%{_datadir}/doc/SailfishOS/extended-packagelist
