@@ -7,6 +7,11 @@ case $1 in
         pkcon refresh
         MODEL=`ssu model -s | tr '[A-Z]' '[a-z]' | sed 's/ /_/g'`
         pkcon upgrade-system jolla-configuration-$MODEL complete
+        echo
+        echo "REBOOT NOW, unless you need to investigate update issues, or know what "
+        echo "you're doing (or both)."
+        echo "All bugs you encounter until reboot are features unless you meet one of the"
+        echo "criteria from the previous sentence."
         ;;
     "--verify")
         if [ -f /usr/share/sailfish-version/packagelist ]; then
