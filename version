@@ -1,6 +1,7 @@
 #!/bin/bash
 
 RET=0
+PACKAGELISTD=/usr/share/sailfish-version/packagelist.d
 
 case $1 in
     "--dup")
@@ -14,8 +15,8 @@ case $1 in
         echo "criteria from the previous sentence."
         ;;
     "--verify")
-        if [ -f /usr/share/sailfish-version/packagelist ]; then
-            for i in `cat /usr/share/sailfish-version/packagelist`; do
+        if [ -d $PACKAGELISTD ] && [ `ls -A $PACKAGELISTD` ]; then
+            for i in `cat $PACKAGELISTD/* | sort | uniq`; do
                 rpm -q $i > /dev/null 2>&1
                 if [ $? -ne 0 ]; then
                     PACKAGE=`echo $i | awk -F - '{ OFS="-"; $NF=""; $(NF-1)=""; print }' | sed 's/-*$//'`

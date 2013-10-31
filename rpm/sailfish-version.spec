@@ -8,6 +8,11 @@
 %define _obs_build_count %(echo %{release} | awk -F . '{if (NF >= 3) print $3; else print $1 }')
 %define _obs_commit_count %(echo %{release} | awk -F . '{if (NF >= 2) print $2; else print $1 }')
 
+%if %{_build_flavour} == release
+%define _version_appendix (%{_target_cpu})
+%else
+%define _version_appendix (%{_target_cpu},%{_build_flavour})
+%endif
 
 Name: sailfish-version
 Version: 0.0.1
@@ -36,14 +41,14 @@ Requires: PackageKit
 
 
 %description
-SailfishOS core, version %{version}.%{_obs_build_count} for %{_target_cpu} platform.
+SailfishOS core "%{_version_name}" (%{version}.%{_obs_build_count}) for %{_target_cpu} platform.
 
 %files
 %defattr(-,root,root,-)
 %config %{_sysconfdir}/sailfish-release
 %config %{_sysconfdir}/os-release
 %config %{_sysconfdir}/profile.d/sailfish-version.sh
-%{_datadir}/%{name}/packagelist
+%{_datadir}/%{name}/packagelist.d/*
 %{_bindir}/version
 
 %package doc
@@ -66,18 +71,19 @@ Group: System/Libraries
 
 %install
 echo "Building for %{_build_flavour}"
-mkdir -p %{buildroot}/%{_datadir}/%{name}
-RPM_PATH=${RPM_SOURCE_DIR:-rpm}/${RPM_PACKAGE_NAME:-mce}.spec
+mkdir -p %{buildroot}/%{_datadir}/%{name}/packagelist.d
+VERSION_NAME=`cat version_name`
+RPM_PATH=${RPM_SOURCE_DIR:-rpm}/${RPM_PACKAGE_NAME:-sailfish-version}.spec
 for req in `rpmspec -q --buildrequires $RPM_PATH`; do
-    rpm -qa $req >> %{buildroot}/%{_datadir}/%{name}/packagelist
+    rpm -qa $req >> %{buildroot}/%{_datadir}/%{name}/packagelist.d/%{name}
 done
 mkdir -p %{buildroot}/%{_sysconfdir}
 cat > %{buildroot}/%{_sysconfdir}/sailfish-release <<EOF
 NAME=SailfishOS
 ID=sailfishos
-VERSION=%{version}.%{_obs_build_count}
+VERSION="%{version}.%{_obs_build_count} ($VERSION_NAME) %{_version_appendix}"
 VERSION_ID=%{version}.%{_obs_build_count}
-PRETTY_NAME="SailfishOS %{version}.%{_obs_build_count} (%{_target_cpu},%{_build_flavour})"
+PRETTY_NAME="SailfishOS %{version}.%{_obs_build_count} ($VERSION_NAME) %{_version_appendix}"
 SAILFISH_BUILD=%{_obs_build_count}
 SAILFISH_FLAVOUR=%{_build_flavour}
 HOME_URL="https://sailfishos.org/"
@@ -85,7 +91,8 @@ EOF
 ln -s %{_sysconfdir}/sailfish-release %{buildroot}/%{_sysconfdir}/os-release
 install -m 644 -D sailfish-version.sh %{buildroot}/%{_sysconfdir}/profile.d/sailfish-version.sh
 install -m 755 -D version %{buildroot}/%{_bindir}/version
+cat %{buildroot}/%{_sysconfdir}/sailfish-release
 
 mkdir -p %{buildroot}/%{_datadir}/doc/SailfishOS
-cp %{buildroot}/%{_datadir}/%{name}/packagelist %{buildroot}/%{_sysconfdir}/sailfish-release %{buildroot}/%{_datadir}/doc/SailfishOS/
+cp %{buildroot}/%{_datadir}/%{name}/packagelist.d/* %{buildroot}/%{_sysconfdir}/sailfish-release %{buildroot}/%{_datadir}/doc/SailfishOS/
 rpm -qa | sort > %{buildroot}/%{_datadir}/doc/SailfishOS/extended-packagelist
