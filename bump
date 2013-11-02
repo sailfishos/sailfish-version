@@ -1,0 +1,59 @@
+#!/bin/bash
+
+RELBUG=1731
+GITSTATUS=`git status`
+
+VERSIONSTATUS=`git status -s version_name`
+if [ -z "$VERSIONSTATUS" ]; then
+    echo -n "Version name not updated, enter new version name: "
+    read readversion
+
+    if [ -z "$readversion" ]; then
+        echo "Version name not updated, exit"
+        exit 1
+    else
+        echo -n $readversion > version_name
+    fi
+fi
+
+
+OLDTAG=`git describe --tags 2>/dev/null`
+
+if [ -n "$OLDTAG" ]; then
+    NEWTAG=`echo $OLDTAG | awk -F . '{ if (NF == 3) { sum = $3 + 1; printf "%s.%s.%s", $1, $2, sum }}'`
+fi
+
+echo -n "New tag (default: $NEWTAG): "
+read readtag
+
+if [ -n "$readtag" ]; then
+    NEWTAG=$readtag
+fi
+
+if [ -z "$NEWTAG" ]; then
+    echo "No valid tag"
+    exit 1
+fi
+
+if [ -n "$GITSTATUS" ]; then
+    git status
+
+    echo
+    echo
+    echo -n "The above changes will be comitted, are you sure? (y/n/v[ersion only]) "
+
+    read -n 1 yesno
+    echo
+
+    if [ "$yesno" = "y" ]; then
+        git add --all
+    elif [ "$yesno" = "v" ]; then
+        git add version_name
+    else
+        exit
+    fi
+fi
+
+git commit -m "[version] Bump to $NEWTAG (`cat version_name`), JB#$RELBUG" || exit 1
+git tag $NEWTAG
+git push && git push --tags
