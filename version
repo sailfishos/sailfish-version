@@ -15,7 +15,7 @@ case $1 in
         echo "criteria from the previous sentence."
         ;;
     "--verify")
-        if [ -d $PACKAGELISTD ] && [ `ls -A $PACKAGELISTD` ]; then
+        if [ -d $PACKAGELISTD ] && [[ `ls -A $PACKAGELISTD` ]]; then
             for i in `cat $PACKAGELISTD/* | sort | uniq`; do
                 rpm -q $i > /dev/null 2>&1
                 if [ $? -ne 0 ]; then
