@@ -1,0 +1,3 @@
+#!/bin/bash
+
+rpm -qa *yython* | wc -l ; echo $?
