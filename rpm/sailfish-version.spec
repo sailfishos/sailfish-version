@@ -5,7 +5,12 @@
 %endif
 
 # needs to match the prjconf in pj:tools
+%if 0%{?_forced_sailfish_version_build_count:1}
+%define _obs_build_count %{_forced_sailfish_version_build_count}
+%else
 %define _obs_build_count %(echo %{release} | awk -F . '{if (NF >= 3) print $3; else print $1 }')
+%endif
+
 %define _obs_commit_count %(echo %{release} | awk -F . '{if (NF >= 2) print $2; else print $1 }')
 
 %if %{_build_flavour} == release
