@@ -6,7 +6,8 @@ To select a new name:
   for the lakes starting with the next letter in the alphabet compared
   to current release
 - Take the release version of the last release (ignoring hotfixes), and
-  the 4 digits
+  the 4 digits; if there already is an RC this version number may be used
+  instead.
 - Select a starting point in the list. If it's the first time this
   letter is used it'd be the first lake, second time the second, etc.
   Ignore lakes containing spaces, dashes, ...
@@ -14,9 +15,17 @@ To select a new name:
 - If that lake was already taken in the past, go to the next one until
   a free lake comes up
 
+
 Example:
 
 - 1.0.2.5 Maadajävri
 - First lake would be Naakalampi
 - Move 8 positions after that
 - New release name is Naamankajärvi
+
+
+Note:
+
+With fast release cycles it's expected to skip one release for naming.
+That is, update 8 (1.0.8.x) will most likely get the name from update
+6 (1.0.6.x)
