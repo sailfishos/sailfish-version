@@ -26,6 +26,7 @@ Summary: SailfishOS %{version}.%{_obs_build_count} (%{_target_cpu},%{_build_flav
 Group: System/Libraries
 License: TBD
 Source: %{name}-%{version}.tar.gz
+BuildArch: noarch
 BuildRequires: rpm
 BuildRequires: ssu, ssu-vendor-data-jolla
 BuildRequires: lipstick-jolla-home-qt5, store-client
@@ -53,7 +54,7 @@ SailfishOS core "%{_version_name}" (%{version}.%{_obs_build_count}) for %{_targe
 %config %{_sysconfdir}/sailfish-release
 %config %{_sysconfdir}/os-release
 %config %{_sysconfdir}/profile.d/sailfish-version.sh
-%{_datadir}/%{name}/packagelist.d/*
+%dir %{_datadir}/%{name}/packagelist.d
 %{_bindir}/version
 
 %package doc
@@ -78,10 +79,6 @@ Group: System/Libraries
 echo "Building for %{_build_flavour}"
 mkdir -p %{buildroot}/%{_datadir}/%{name}/packagelist.d
 VERSION_NAME=`cat version_name`
-RPM_PATH=${RPM_SOURCE_DIR:-rpm}/${RPM_PACKAGE_NAME:-sailfish-version}.spec
-for req in `rpmspec -q --buildrequires $RPM_PATH`; do
-    rpm -qa $req >> %{buildroot}/%{_datadir}/%{name}/packagelist.d/%{name}
-done
 mkdir -p %{buildroot}/%{_sysconfdir}
 cat > %{buildroot}/%{_sysconfdir}/sailfish-release <<EOF
 NAME=SailfishOS
@@ -97,7 +94,4 @@ ln -s %{_sysconfdir}/sailfish-release %{buildroot}/%{_sysconfdir}/os-release
 install -m 644 -D sailfish-version.sh %{buildroot}/%{_sysconfdir}/profile.d/sailfish-version.sh
 install -m 755 -D version %{buildroot}/%{_bindir}/version
 cat %{buildroot}/%{_sysconfdir}/sailfish-release
-
 mkdir -p %{buildroot}/%{_datadir}/doc/SailfishOS
-cp %{buildroot}/%{_datadir}/%{name}/packagelist.d/* %{buildroot}/%{_sysconfdir}/sailfish-release %{buildroot}/%{_datadir}/doc/SailfishOS/
-rpm -qa | sort > %{buildroot}/%{_datadir}/doc/SailfishOS/extended-packagelist
