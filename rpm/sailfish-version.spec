@@ -14,15 +14,15 @@
 %define _obs_commit_count %(echo %{release} | awk -F . '{if (NF >= 2) print $2; else print $1 }')
 
 %if %{_build_flavour} == release
-%define _version_appendix (%{_target_cpu})
+%define _version_appendix (TARGET_CPU)
 %else
-%define _version_appendix (%{_target_cpu},%{_build_flavour})
+%define _version_appendix (TARGET_CPU,%{_build_flavour})
 %endif
 
 Name: sailfish-version
 Version: 0.0.1
 Release: 1
-Summary: SailfishOS %{version}.%{_obs_build_count} (%{_target_cpu},%{_build_flavour})
+Summary: SailfishOS %{version}.%{_obs_build_count} (%{_build_flavour})
 Group: System/Libraries
 License: TBD
 Source: %{name}-%{version}.tar.gz
@@ -44,21 +44,23 @@ BuildRequires: ohm, alsa-plugins-pulseaudio, connman, bluez
 # BuildRequires: ofono
 BuildRequires: PackageKit
 Requires: PackageKit
+Requires(post): ssu
 
 
 %description
-SailfishOS core "%{_version_name}" (%{version}.%{_obs_build_count}) for %{_target_cpu} platform.
+SailfishOS core "%{_version_name}" (%{version}.%{_obs_build_count}) %{_build_flavour}.
 
 %files
 %defattr(-,root,root,-)
-%config %{_sysconfdir}/sailfish-release
+%ghost %attr(0644, root, root) %{_sysconfdir}/sailfish-release
+%config %{_sysconfdir}/sailfish-release.template
 %config %{_sysconfdir}/os-release
 %config %{_sysconfdir}/profile.d/sailfish-version.sh
 %dir %{_datadir}/%{name}/packagelist.d
 %{_bindir}/version
 
 %package doc
-Summary: SailfishOS %{version}.%{_obs_build_count} (%{_target_cpu},%{_build_flavour})
+Summary: SailfishOS %{version}.%{_obs_build_count} (%{_build_flavour})
 Group: System/Libraries
 
 %description doc
@@ -80,7 +82,7 @@ echo "Building for %{_build_flavour}"
 mkdir -p %{buildroot}/%{_datadir}/%{name}/packagelist.d
 VERSION_NAME=`cat version_name`
 mkdir -p %{buildroot}/%{_sysconfdir}
-cat > %{buildroot}/%{_sysconfdir}/sailfish-release <<EOF
+cat > %{buildroot}/%{_sysconfdir}/sailfish-release.template <<EOF
 NAME=SailfishOS
 ID=sailfishos
 VERSION="%{version}.%{_obs_build_count} ($VERSION_NAME) %{_version_appendix}"
@@ -93,5 +95,13 @@ EOF
 ln -s %{_sysconfdir}/sailfish-release %{buildroot}/%{_sysconfdir}/os-release
 install -m 644 -D sailfish-version.sh %{buildroot}/%{_sysconfdir}/profile.d/sailfish-version.sh
 install -m 755 -D version %{buildroot}/%{_bindir}/version
-cat %{buildroot}/%{_sysconfdir}/sailfish-release
+cat %{buildroot}/%{_sysconfdir}/sailfish-release.template
 mkdir -p %{buildroot}/%{_datadir}/doc/SailfishOS
+
+%post
+ARCH=`grep arch /etc/ssu/ssu.ini | sed 's/^.*=//'`
+if [ -z "$ARCH" ]; then
+    sed 's/TARGET_CPU/unknown/' %{_sysconfdir}/sailfish-release.template > ${_sysconfdir}/sailfish-release
+else
+    sed "s/TARGET_CPU/$ARCH/" %{_sysconfdir}/sailfish-release.template > ${_sysconfdir}/sailfish-release
+fi
