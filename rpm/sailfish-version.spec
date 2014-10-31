@@ -101,7 +101,7 @@ mkdir -p %{buildroot}/%{_datadir}/doc/SailfishOS
 %post
 ARCH=`grep ^arch= /etc/ssu/ssu.ini | sed 's/^.*=//'`
 if [ -z "$ARCH" ]; then
-    sed 's/TARGET_CPU/unknown/' %{_sysconfdir}/sailfish-release.template > ${_sysconfdir}/sailfish-release
+    sed 's/TARGET_CPU/unknown/' %{_sysconfdir}/sailfish-release.template > %{_sysconfdir}/sailfish-release
 else
-    sed "s/TARGET_CPU/$ARCH/" %{_sysconfdir}/sailfish-release.template > ${_sysconfdir}/sailfish-release
+    sed "s/TARGET_CPU/$ARCH/" %{_sysconfdir}/sailfish-release.template > %{_sysconfdir}/sailfish-release
 fi
