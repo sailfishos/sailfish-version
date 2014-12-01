@@ -97,7 +97,7 @@ install -m 644 -D sailfish-version.sh %{buildroot}/%{_sysconfdir}/profile.d/sail
 install -m 755 -D version %{buildroot}/%{_bindir}/version
 cat %{buildroot}/%{_sysconfdir}/sailfish-release.template
 mkdir -p %{buildroot}/%{_datadir}/doc/SailfishOS
-cp %{buildroot}/%{_sysconfdir}/sailfish-release %{buildroot}/%{_datadir}/doc/SailfishOS/
+cp %{buildroot}/%{_sysconfdir}/sailfish-release.template %{buildroot}/%{_datadir}/doc/SailfishOS/
 
 %post
 ARCH=`grep ^arch= /etc/ssu/ssu.ini | sed 's/^.*=//'`
