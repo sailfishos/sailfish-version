@@ -34,7 +34,7 @@ BuildRequires: jolla-settings-system, jolla-settings-networking, jolla-settings-
 BuildRequires: jolla-settings-accounts, jolla-settings-transferui-qt5
 BuildRequires: jolla-camera, jolla-contacts, voicecall-ui-jolla
 BuildRequires: jolla-gallery, jolla-messages
-BuildRequires: jolla-sessions-qt5, jolla-keyboard, sailfish-browser
+BuildRequires: jolla-sessions-qt5, jolla-keyboard
 BuildRequires: jolla-firstsession, jolla-vault
 # core MW
 BuildRequires: bluez-configs-sailfish, buteo-mtp, buteo-sync-plugins-qt5
