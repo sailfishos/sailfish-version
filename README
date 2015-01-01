@@ -1,3 +1,27 @@
+1. Tagging sailfish-version
+---------------------------
+
+The version of this package MUST only be increased at the beginning of
+a new release cycle. If changes outside of starting a new release cycle
+are required a revision MUST be appended to the last version number.
+
+The source tree contains two scripts to make both tasks easier.
+
+For starting a new release cycle, determine the next release name
+according to section 2 below, then call the ./bump script, and
+follow the instructions on screen. The version will be calculated
+automatically, you only need to insert the new release name, and
+confirm a few times.
+
+For tagging after additional changes call the ./tag script. It should
+calculate the correct tag/revision combination, and display it for
+confirmation. Only change it if the displayed tag is wrong (and in
+that case, fix the script).
+
+
+2. Finding a new release name
+-----------------------------
+
 Since people already started accurately guessing next release names it's
 time to make it a bit complicated.
 
