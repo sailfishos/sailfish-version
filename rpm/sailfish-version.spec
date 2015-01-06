@@ -104,4 +104,4 @@ cp %{buildroot}/%{_sysconfdir}/sailfish-release.template %{buildroot}/%{_datadir
 install -m755 -D sailfish-version-update %{buildroot}/%{_oneshotdir}/sailfish-version-update
 
 %post
-%{_bindir}/add-oneshot sailfish-version-update
+%{_bindir}/add-oneshot --now sailfish-version-update

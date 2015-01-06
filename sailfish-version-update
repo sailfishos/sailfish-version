@@ -2,6 +2,7 @@
 
 ARCH=`grep ^arch= /etc/ssu/ssu.ini | sed 's/^.*=//'`
 if [ -z "$ARCH" ]; then
+    echo "Unknown architecture, setting default template and retry."
     sed 's/TARGET_CPU/unknown/' /etc/sailfish-release.template > /etc/sailfish-release
     # retry arch detection on next boot
     exit 1
