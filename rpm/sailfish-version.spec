@@ -44,6 +44,8 @@ BuildRequires: ohm, alsa-plugins-pulseaudio, connman, bluez
 # BuildRequires: ofono
 BuildRequires: PackageKit
 Requires: PackageKit
+%{_oneshot_requires_post}
+Requires: oneshot
 Requires(post): ssu
 
 
@@ -58,6 +60,7 @@ SailfishOS core "%{_version_name}" (%{version}.%{_obs_build_count}) %{_build_fla
 %config %{_sysconfdir}/profile.d/sailfish-version.sh
 %dir %{_datadir}/%{name}/packagelist.d
 %{_bindir}/version
+%{_oneshotdir}/sailfish-version-update
 
 %package doc
 Summary: SailfishOS %{version}.%{_obs_build_count} (%{_build_flavour})
@@ -98,11 +101,7 @@ install -m 755 -D version %{buildroot}/%{_bindir}/version
 cat %{buildroot}/%{_sysconfdir}/sailfish-release.template
 mkdir -p %{buildroot}/%{_datadir}/doc/SailfishOS
 cp %{buildroot}/%{_sysconfdir}/sailfish-release.template %{buildroot}/%{_datadir}/doc/SailfishOS/
+install -m755 -D sailfish-version-update %{buildroot}/%{_oneshotdir}/sailfish-version-update
 
 %post
-ARCH=`grep ^arch= /etc/ssu/ssu.ini | sed 's/^.*=//'`
-if [ -z "$ARCH" ]; then
-    sed 's/TARGET_CPU/unknown/' %{_sysconfdir}/sailfish-release.template > %{_sysconfdir}/sailfish-release
-else
-    sed "s/TARGET_CPU/$ARCH/" %{_sysconfdir}/sailfish-release.template > %{_sysconfdir}/sailfish-release
-fi
+%{_bindir}/add-oneshot --now sailfish-version-update
