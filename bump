@@ -23,16 +23,11 @@ if [ -n "$OLDTAG" ]; then
     NEWTAG=`echo $OLDTAG | awk -f version.awk`
 fi
 
-echo -n "New tag (default: $NEWTAG): "
-read readtag
-
-if [ -n "$readtag" ]; then
-    NEWTAG=$readtag
-fi
-
 if [ -z "$NEWTAG" ]; then
     echo "No valid tag"
     exit 1
+else
+    echo "Tagging $NEWTAG / `cat version_name`"
 fi
 
 if [ -n "$GITSTATUS" ]; then
