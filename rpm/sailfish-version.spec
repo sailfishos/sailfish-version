@@ -13,7 +13,7 @@
 
 %define _obs_commit_count %(echo %{release} | awk -F . '{if (NF >= 2) print $2; else print $1 }')
 
-%if %{_build_flavour} == release
+%if "%{_build_flavour}" == release
 %define _version_appendix (TARGET_CPU)
 %else
 %define _version_appendix (TARGET_CPU,%{_build_flavour})
