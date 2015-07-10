@@ -1,5 +1,5 @@
 %if 0%{?_obs_build_project:1}
-%define _build_flavour %(echo %{_obs_build_project} | awk -F : '{if (NF == 3) print $3; else if (NF == 2) print strdevel; else print strunknown}' strdevel=devel strunknown=unknown)
+%define _build_flavour %(echo %{_obs_build_project} | awk -F : '{if ($NF == "testing" || $NF == "release") print $NF; else if ($NF ~ /[0-9]\.[0-9]\.[0-9]/ && NF == 3) print strdevel; else if (NF == 2) print strdevel ;else print strunknown}' strdevel=devel strunknown=unknown)
 %else
 %define _build_flavour unknown
 %endif
@@ -19,6 +19,8 @@
 %define _version_appendix (TARGET_CPU,%{_build_flavour})
 %endif
 
+%define _version_name %(cat %{SOURCE1})
+
 Name: sailfish-version
 Version: 0.0.1
 Release: 1
@@ -26,6 +28,7 @@ Summary: SailfishOS %{version}.%{_obs_build_count} (%{_build_flavour})
 Group: System/Libraries
 License: TBD
 Source: %{name}-%{version}.tar.gz
+Source1: version_name
 BuildArch: noarch
 BuildRequires: rpm
 BuildRequires: ssu, ssu-vendor-data-jolla
@@ -83,7 +86,7 @@ Group: System/Libraries
 %install
 echo "Building for %{_build_flavour}"
 mkdir -p %{buildroot}/%{_datadir}/%{name}/packagelist.d
-VERSION_NAME=`cat version_name`
+VERSION_NAME=`cat %{SOURCE1}`
 mkdir -p %{buildroot}/%{_sysconfdir}
 cat > %{buildroot}/%{_sysconfdir}/sailfish-release.template <<EOF
 NAME=SailfishOS
