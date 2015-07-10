@@ -3,7 +3,7 @@
 RELBUG=1731
 GITSTATUS=`git status`
 
-VERSIONSTATUS=`git status -s version_name`
+VERSIONSTATUS=`git status -s rpm/version_name`
 if [ -z "$VERSIONSTATUS" ]; then
     echo -n "Version name not updated, enter new version name: "
     read readversion
@@ -12,7 +12,7 @@ if [ -z "$VERSIONSTATUS" ]; then
         echo "Version name not updated, exit"
         exit 1
     else
-        echo -n $readversion > version_name
+        echo -n $readversion > rpm/version_name
     fi
 fi
 
@@ -27,7 +27,7 @@ if [ -z "$NEWTAG" ]; then
     echo "No valid tag"
     exit 1
 else
-    echo "Tagging $NEWTAG / `cat version_name`"
+    echo "Tagging $NEWTAG / `cat rpm/version_name`"
 fi
 
 if [ -n "$GITSTATUS" ]; then
@@ -43,12 +43,12 @@ if [ -n "$GITSTATUS" ]; then
     if [ "$yesno" = "y" ]; then
         git add --all
     elif [ "$yesno" = "v" ]; then
-        git add version_name
+        git add rpm/version_name
     else
         exit
     fi
 fi
 
-git commit -m "[version] Bump to $NEWTAG (`cat version_name`), JB#$RELBUG" || exit 1
+git commit -m "[version] Bump to $NEWTAG (`cat rpm/version_name`), JB#$RELBUG" || exit 1
 git tag $NEWTAG
 git push && git push --tags
