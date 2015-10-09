@@ -32,9 +32,9 @@ Source1: version_name
 BuildArch: noarch
 
 # UI & Applications
+BuildRequires: csd
 BuildRequires: jolla-camera
 BuildRequires: jolla-contacts
-BuildRequires: jolla-firstsession
 BuildRequires: jolla-gallery
 BuildRequires: jolla-keyboard
 BuildRequires: jolla-messages
@@ -44,12 +44,16 @@ BuildRequires: jolla-settings-bluetooth
 BuildRequires: jolla-settings-networking
 BuildRequires: jolla-settings-system
 BuildRequires: jolla-settings-transferui-qt5
+BuildRequires: jolla-startupwizard
 BuildRequires: jolla-vault
 BuildRequires: lipstick-jolla-home-qt5
+BuildRequires: sailfish-tutorial
+BuildRequires: simkit
 BuildRequires: store-client
 BuildRequires: voicecall-ui-jolla
 
 # Core & MW
+BuildRequires: apkd
 BuildRequires: PackageKit
 BuildRequires: alsa-plugins-pulseaudio
 BuildRequires: bluez
@@ -58,6 +62,8 @@ BuildRequires: buteo-mtp
 BuildRequires: buteo-sync-plugins-qt5
 BuildRequires: connman
 BuildRequires: connman-configs-sailfish
+BuildRequires: jolla-common-configurations
+BuildRequires: jolla-firstsession
 BuildRequires: ofono
 BuildRequires: ohm
 BuildRequires: qt5-plugin-bearer-connman
