@@ -30,22 +30,41 @@ License: TBD
 Source: %{name}-%{version}.tar.gz
 Source1: version_name
 BuildArch: noarch
-BuildRequires: rpm
-BuildRequires: ssu, ssu-vendor-data-jolla
-BuildRequires: lipstick-jolla-home-qt5, store-client
-BuildRequires: jolla-settings-system, jolla-settings-networking, jolla-settings-bluetooth
-BuildRequires: jolla-settings-accounts, jolla-settings-transferui-qt5
-BuildRequires: jolla-camera, jolla-contacts, voicecall-ui-jolla
-BuildRequires: jolla-gallery, jolla-messages
-BuildRequires: jolla-sessions-qt5, jolla-keyboard
-BuildRequires: jolla-firstsession, jolla-vault
-# core MW
-BuildRequires: bluez-configs-sailfish, buteo-mtp, buteo-sync-plugins-qt5
-BuildRequires: qt5-plugin-bearer-connman, connman-configs-sailfish
-BuildRequires: ohm, alsa-plugins-pulseaudio, connman, bluez
-# currently different ofono for boston, so exclude
-# BuildRequires: ofono
+
+# UI & Applications
+BuildRequires: jolla-camera
+BuildRequires: jolla-contacts
+BuildRequires: jolla-firstsession
+BuildRequires: jolla-gallery
+BuildRequires: jolla-keyboard
+BuildRequires: jolla-messages
+BuildRequires: jolla-sessions-qt5
+BuildRequires: jolla-settings-accounts
+BuildRequires: jolla-settings-bluetooth
+BuildRequires: jolla-settings-networking
+BuildRequires: jolla-settings-system
+BuildRequires: jolla-settings-transferui-qt5
+BuildRequires: jolla-vault
+BuildRequires: lipstick-jolla-home-qt5
+BuildRequires: store-client
+BuildRequires: voicecall-ui-jolla
+
+# Core & MW
 BuildRequires: PackageKit
+BuildRequires: alsa-plugins-pulseaudio
+BuildRequires: bluez
+BuildRequires: bluez-configs-sailfish
+BuildRequires: buteo-mtp
+BuildRequires: buteo-sync-plugins-qt5
+BuildRequires: connman
+BuildRequires: connman-configs-sailfish
+BuildRequires: ofono
+BuildRequires: ohm
+BuildRequires: qt5-plugin-bearer-connman
+BuildRequires: rpm
+BuildRequires: ssu
+BuildRequires: ssu-vendor-data-jolla
+
 Requires: PackageKit
 %{_oneshot_requires_post}
 Requires: oneshot
