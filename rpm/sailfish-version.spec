@@ -26,7 +26,7 @@ Version: 0.0.1
 Release: 1
 Summary: SailfishOS %{version}.%{_obs_build_count} (%{_build_flavour})
 Group: System/Libraries
-License: TBD
+License: Proprietary
 Source: %{name}-%{version}.tar.gz
 Source1: version_name
 BuildArch: noarch
