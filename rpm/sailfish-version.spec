@@ -56,8 +56,6 @@ BuildRequires: voicecall-ui-jolla
 BuildRequires: apkd
 BuildRequires: PackageKit
 BuildRequires: alsa-plugins-pulseaudio
-BuildRequires: bluez
-BuildRequires: bluez-configs-sailfish
 BuildRequires: buteo-mtp
 BuildRequires: buteo-sync-plugins-qt5
 BuildRequires: connman
