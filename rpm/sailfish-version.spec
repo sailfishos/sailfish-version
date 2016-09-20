@@ -59,7 +59,6 @@ BuildRequires: alsa-plugins-pulseaudio
 BuildRequires: buteo-mtp
 BuildRequires: buteo-sync-plugins-qt5
 BuildRequires: connman
-BuildRequires: connman-configs-sailfish
 BuildRequires: jolla-common-configurations
 BuildRequires: jolla-firstsession
 BuildRequires: ofono
