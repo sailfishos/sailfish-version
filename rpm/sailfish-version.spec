@@ -32,14 +32,31 @@ Source1: version_name
 BuildArch: noarch
 
 # UI & Applications
+# We should use patterns, but because of JB#38246 we cant
 BuildRequires: csd
-BuildRequires: patterns-sailfish-ui
+BuildRequires: jolla-keyboard
+BuildRequires: jolla-sessions-qt5
+BuildRequires: lipstick-jolla-home-qt5
 BuildRequires: patterns-sailfish-applications
 BuildRequires: patterns-sailfish-cellular-apps
+BuildRequires: patterns-sailfish-store-applications
+BuildRequires: patterns-sailfish-consumer-generic
 
 # Core & MW
-BuildRequires: patterns-sailfish-core
-BuildRequires: patterns-sailfish-mw
+# We should use patterns, but because of JB#38246 we cant
+BuildRequires: PackageKit
+BuildRequires: alsa-plugins-pulseaudio
+BuildRequires: buteo-mtp
+BuildRequires: buteo-sync-plugins-qt5
+BuildRequires: connman
+BuildRequires: jolla-common-configurations
+BuildRequires: jolla-firstsession
+BuildRequires: ofono
+BuildRequires: ohm
+BuildRequires: qt5-plugin-bearer-connman
+BuildRequires: rpm
+BuildRequires: ssu
+BuildRequires: ssu-vendor-data-jolla
 
 Requires: PackageKit
 %{_oneshot_requires_post}
