@@ -32,14 +32,14 @@ Source1: version_name
 BuildArch: noarch
 
 # UI & Applications
-# We should use patterns, but because of JB#38246 we cant
+# We should use patterns, but because of JB#38246 we cant.
+# Store apps cannot be here because apps repo is above non-oss repository.
 BuildRequires: csd
 BuildRequires: jolla-keyboard
 BuildRequires: jolla-sessions-qt5
 BuildRequires: lipstick-jolla-home-qt5
 BuildRequires: patterns-sailfish-applications
 BuildRequires: patterns-sailfish-cellular-apps
-BuildRequires: patterns-sailfish-store-applications
 BuildRequires: patterns-sailfish-consumer-generic
 
 # Core & MW
