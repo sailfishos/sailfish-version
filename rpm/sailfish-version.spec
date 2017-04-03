@@ -32,28 +32,18 @@ Source1: version_name
 BuildArch: noarch
 
 # UI & Applications
+# We should use patterns, but because of JB#38246 we cant
 BuildRequires: csd
-BuildRequires: jolla-camera
-BuildRequires: jolla-contacts
-BuildRequires: jolla-gallery
 BuildRequires: jolla-keyboard
-BuildRequires: jolla-messages
 BuildRequires: jolla-sessions-qt5
-BuildRequires: jolla-settings-accounts
-BuildRequires: jolla-settings-bluetooth
-BuildRequires: jolla-settings-networking
-BuildRequires: jolla-settings-system
-BuildRequires: jolla-settings-transferui-qt5
-BuildRequires: jolla-startupwizard
-BuildRequires: jolla-vault
 BuildRequires: lipstick-jolla-home-qt5
-BuildRequires: sailfish-tutorial
-BuildRequires: simkit
-BuildRequires: store-client
-BuildRequires: voicecall-ui-jolla
+BuildRequires: patterns-sailfish-applications
+BuildRequires: patterns-sailfish-cellular-apps
+BuildRequires: patterns-sailfish-store-applications
+BuildRequires: patterns-sailfish-consumer-generic
 
 # Core & MW
-BuildRequires: apkd
+# We should use patterns, but because of JB#38246 we cant
 BuildRequires: PackageKit
 BuildRequires: alsa-plugins-pulseaudio
 BuildRequires: buteo-mtp
