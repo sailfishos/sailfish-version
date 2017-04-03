@@ -33,13 +33,40 @@ BuildArch: noarch
 
 # UI & Applications
 BuildRequires: csd
-BuildRequires: patterns-sailfish-ui
-BuildRequires: patterns-sailfish-applications
-BuildRequires: patterns-sailfish-cellular-apps
+BuildRequires: jolla-camera
+BuildRequires: jolla-contacts
+BuildRequires: jolla-gallery
+BuildRequires: jolla-keyboard
+BuildRequires: jolla-messages
+BuildRequires: jolla-sessions-qt5
+BuildRequires: jolla-settings-accounts
+BuildRequires: jolla-settings-bluetooth
+BuildRequires: jolla-settings-networking
+BuildRequires: jolla-settings-system
+BuildRequires: jolla-settings-transferui-qt5
+BuildRequires: jolla-startupwizard
+BuildRequires: jolla-vault
+BuildRequires: lipstick-jolla-home-qt5
+BuildRequires: sailfish-tutorial
+BuildRequires: simkit
+BuildRequires: store-client
+BuildRequires: voicecall-ui-jolla
 
 # Core & MW
-BuildRequires: patterns-sailfish-core
-BuildRequires: patterns-sailfish-mw
+BuildRequires: apkd
+BuildRequires: PackageKit
+BuildRequires: alsa-plugins-pulseaudio
+BuildRequires: buteo-mtp
+BuildRequires: buteo-sync-plugins-qt5
+BuildRequires: connman
+BuildRequires: jolla-common-configurations
+BuildRequires: jolla-firstsession
+BuildRequires: ofono
+BuildRequires: ohm
+BuildRequires: qt5-plugin-bearer-connman
+BuildRequires: rpm
+BuildRequires: ssu
+BuildRequires: ssu-vendor-data-jolla
 
 Requires: PackageKit
 %{_oneshot_requires_post}
