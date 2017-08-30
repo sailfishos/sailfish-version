@@ -62,6 +62,8 @@ Requires: PackageKit
 %{_oneshot_requires_post}
 Requires: oneshot
 Requires(post): ssu
+# mer-release provides /etc/issue* as well
+Obsoletes: mer-release
 
 
 %description
@@ -72,6 +74,8 @@ SailfishOS core "%{_version_name}" (%{version}.%{_obs_build_count}) %{_build_fla
 %ghost %attr(0644, root, root) %{_sysconfdir}/sailfish-release
 %config %{_sysconfdir}/os-release
 %config %{_sysconfdir}/profile.d/sailfish-version.sh
+%config %{_sysconfdir}/issue
+%config %{_sysconfdir}/issue.net
 %dir %{_datadir}/%{name}/packagelist.d
 %{_bindir}/version
 
@@ -108,6 +112,14 @@ SAILFISH_FLAVOUR=%{_build_flavour}
 HOME_URL="https://sailfishos.org/"
 EOF
 ln -s %{_sysconfdir}/sailfish-release %{buildroot}/%{_sysconfdir}/os-release
+
+cat > %{buildroot}/%{_sysconfdir}/issue <<EOF
+SailfishOS %{version}.%{_obs_build_count} (%{_version_name})%{_version_appendix}
+Kernel \r on an \m
+EOF
+cp -p %{buildroot}/%{_sysconfdir}/issue %{buildroot}/%{_sysconfdir}/issue.net
+echo >> %{buildroot}/%{_sysconfdir}/issue
+
 install -m 644 -D sailfish-version.sh %{buildroot}/%{_sysconfdir}/profile.d/sailfish-version.sh
 install -m 755 -D version %{buildroot}/%{_bindir}/version
 cat %{buildroot}/%{_sysconfdir}/sailfish-release
