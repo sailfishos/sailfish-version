@@ -14,9 +14,9 @@
 %define _obs_commit_count %(echo %{release} | awk -F . '{if (NF >= 2) print $2; else print $1 }')
 
 %if "%{_build_flavour}" == release
-%define _version_appendix (TARGET_CPU)
+%define _version_appendix %{nil}
 %else
-%define _version_appendix (TARGET_CPU,%{_build_flavour})
+%define _version_appendix \ (%{_build_flavour})
 %endif
 
 %define _version_name %(cat %{SOURCE1})
@@ -62,6 +62,8 @@ Requires: PackageKit
 %{_oneshot_requires_post}
 Requires: oneshot
 Requires(post): ssu
+# mer-release provides /etc/issue* as well
+Obsoletes: mer-release
 
 
 %description
@@ -70,12 +72,12 @@ SailfishOS core "%{_version_name}" (%{version}.%{_obs_build_count}) %{_build_fla
 %files
 %defattr(-,root,root,-)
 %ghost %attr(0644, root, root) %{_sysconfdir}/sailfish-release
-%config %{_sysconfdir}/sailfish-release.template
 %config %{_sysconfdir}/os-release
 %config %{_sysconfdir}/profile.d/sailfish-version.sh
+%config %{_sysconfdir}/issue
+%config %{_sysconfdir}/issue.net
 %dir %{_datadir}/%{name}/packagelist.d
 %{_bindir}/version
-%{_oneshotdir}/sailfish-version-update
 
 %package doc
 Summary: SailfishOS %{version}.%{_obs_build_count} (%{_build_flavour})
@@ -98,25 +100,28 @@ Group: System/Libraries
 %install
 echo "Building for %{_build_flavour}"
 mkdir -p %{buildroot}/%{_datadir}/%{name}/packagelist.d
-VERSION_NAME=`cat %{SOURCE1}`
 mkdir -p %{buildroot}/%{_sysconfdir}
-cat > %{buildroot}/%{_sysconfdir}/sailfish-release.template <<EOF
+cat > %{buildroot}/%{_sysconfdir}/sailfish-release <<EOF
 NAME=SailfishOS
 ID=sailfishos
-VERSION="%{version}.%{_obs_build_count} ($VERSION_NAME) %{_version_appendix}"
+VERSION="%{version}.%{_obs_build_count} (%{_version_name})%{_version_appendix}"
 VERSION_ID=%{version}.%{_obs_build_count}
-PRETTY_NAME="SailfishOS %{version}.%{_obs_build_count} ($VERSION_NAME) %{_version_appendix}"
+PRETTY_NAME="SailfishOS %{version}.%{_obs_build_count} (%{_version_name})%{_version_appendix}"
 SAILFISH_BUILD=%{_obs_build_count}
 SAILFISH_FLAVOUR=%{_build_flavour}
 HOME_URL="https://sailfishos.org/"
 EOF
 ln -s %{_sysconfdir}/sailfish-release %{buildroot}/%{_sysconfdir}/os-release
+
+cat > %{buildroot}/%{_sysconfdir}/issue <<EOF
+SailfishOS %{version}.%{_obs_build_count} (%{_version_name})%{_version_appendix}
+Kernel \r on an \m
+EOF
+cp -p %{buildroot}/%{_sysconfdir}/issue %{buildroot}/%{_sysconfdir}/issue.net
+echo >> %{buildroot}/%{_sysconfdir}/issue
+
 install -m 644 -D sailfish-version.sh %{buildroot}/%{_sysconfdir}/profile.d/sailfish-version.sh
 install -m 755 -D version %{buildroot}/%{_bindir}/version
-cat %{buildroot}/%{_sysconfdir}/sailfish-release.template
+cat %{buildroot}/%{_sysconfdir}/sailfish-release
 mkdir -p %{buildroot}/%{_datadir}/doc/SailfishOS
-cp %{buildroot}/%{_sysconfdir}/sailfish-release.template %{buildroot}/%{_datadir}/doc/SailfishOS/
-install -m755 -D sailfish-version-update %{buildroot}/%{_oneshotdir}/sailfish-version-update
-
-%post
-%{_bindir}/add-oneshot --now sailfish-version-update
+cp %{buildroot}/%{_sysconfdir}/sailfish-release %{buildroot}/%{_datadir}/doc/SailfishOS/
