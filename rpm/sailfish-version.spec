@@ -72,7 +72,7 @@ SailfishOS core "%{_version_name}" (%{version}.%{_obs_build_count}) %{_build_fla
 
 %files
 %defattr(-,root,root,-)
-%ghost %attr(0644, root, root) %{_sysconfdir}/sailfish-release
+%attr(0644, root, root) %{_sysconfdir}/sailfish-release
 %config %{_sysconfdir}/os-release
 %config %{_sysconfdir}/profile.d/sailfish-version.sh
 %config %{_sysconfdir}/issue
