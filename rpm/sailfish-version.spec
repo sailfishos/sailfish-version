@@ -26,6 +26,7 @@ Version: 0.0.1
 Release: 1
 Summary: SailfishOS %{version}.%{_obs_build_count} (%{_build_flavour})
 Group: System/Libraries
+URL: https://sailfishos.org/
 License: Proprietary
 Source: %{name}-%{version}.tar.gz
 Source1: version_name
@@ -71,7 +72,7 @@ SailfishOS core "%{_version_name}" (%{version}.%{_obs_build_count}) %{_build_fla
 
 %files
 %defattr(-,root,root,-)
-%ghost %attr(0644, root, root) %{_sysconfdir}/sailfish-release
+%attr(0644, root, root) %{_sysconfdir}/sailfish-release
 %config %{_sysconfdir}/os-release
 %config %{_sysconfdir}/profile.d/sailfish-version.sh
 %config %{_sysconfdir}/issue
