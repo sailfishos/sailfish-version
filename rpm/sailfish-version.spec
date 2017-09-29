@@ -26,6 +26,7 @@ Version: 0.0.1
 Release: 1
 Summary: SailfishOS %{version}.%{_obs_build_count} (%{_build_flavour})
 Group: System/Libraries
+URL: https://sailfishos.org/
 License: Proprietary
 Source: %{name}-%{version}.tar.gz
 Source1: version_name
