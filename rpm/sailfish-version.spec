@@ -24,7 +24,7 @@
 Name: sailfish-version
 Version: 0.0.1
 Release: 1
-Summary: SailfishOS %{version}.%{_obs_build_count} (%{_build_flavour})
+Summary: Sailfish OS %{version}.%{_obs_build_count} (%{_build_flavour})
 Group: System/Libraries
 URL: https://sailfishos.org/
 License: Proprietary
@@ -66,23 +66,35 @@ Requires(post): ssu
 # mer-release provides /etc/issue* as well
 Obsoletes: mer-release
 
+Requires: sailfish-release-variant
 
 %description
-SailfishOS core "%{_version_name}" (%{version}.%{_obs_build_count}) %{_build_flavour}.
+Sailfish OS core "%{_version_name}" (%{version}.%{_obs_build_count}) %{_build_flavour}.
 
 %files
 %defattr(-,root,root,-)
 %attr(0644, root, root) %{_sysconfdir}/sailfish-release
-%config %{_sysconfdir}/os-release
 %config %{_sysconfdir}/profile.d/sailfish-version.sh
-%config %{_sysconfdir}/issue
-%config %{_sysconfdir}/issue.net
 %dir %{_datadir}/%{name}/packagelist.d
 %{_bindir}/version
 
+%package variant
+Summary: Sailfish OS release variant package
+Requires: %{name}
+Provides: sailfish-release-variant
+
+%description variant
+Package that replaces this one should always provide all the files
+that this package is providing.
+
+%files variant
+%defattr(-,root,root,-)
+%config %{_sysconfdir}/os-release
+%config %{_sysconfdir}/issue
+%config %{_sysconfdir}/issue.net
+
 %package doc
-Summary: SailfishOS %{version}.%{_obs_build_count} (%{_build_flavour})
-Group: System/Libraries
+Summary: Sailfish OS %{version}.%{_obs_build_count} (%{_build_flavour})
 
 %description doc
 %{summary}.
@@ -103,11 +115,11 @@ echo "Building for %{_build_flavour}"
 mkdir -p %{buildroot}/%{_datadir}/%{name}/packagelist.d
 mkdir -p %{buildroot}/%{_sysconfdir}
 cat > %{buildroot}/%{_sysconfdir}/sailfish-release <<EOF
-NAME=SailfishOS
+NAME="Sailfish OS"
 ID=sailfishos
 VERSION="%{version}.%{_obs_build_count} (%{_version_name})%{_version_appendix}"
 VERSION_ID=%{version}.%{_obs_build_count}
-PRETTY_NAME="SailfishOS %{version}.%{_obs_build_count} (%{_version_name})%{_version_appendix}"
+PRETTY_NAME="Sailfish OS %{version}.%{_obs_build_count} (%{_version_name})%{_version_appendix}"
 SAILFISH_BUILD=%{_obs_build_count}
 SAILFISH_FLAVOUR=%{_build_flavour}
 HOME_URL="https://sailfishos.org/"
@@ -115,7 +127,7 @@ EOF
 ln -s %{_sysconfdir}/sailfish-release %{buildroot}/%{_sysconfdir}/os-release
 
 cat > %{buildroot}/%{_sysconfdir}/issue <<EOF
-SailfishOS %{version}.%{_obs_build_count} (%{_version_name})%{_version_appendix}
+Sailfish OS %{version}.%{_obs_build_count} (%{_version_name})%{_version_appendix}
 Kernel \r on an \m
 EOF
 cp -p %{buildroot}/%{_sysconfdir}/issue %{buildroot}/%{_sysconfdir}/issue.net
