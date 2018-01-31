@@ -124,7 +124,7 @@ SAILFISH_BUILD=%{_obs_build_count}
 SAILFISH_FLAVOUR=%{_build_flavour}
 HOME_URL="https://sailfishos.org/"
 EOF
-ln -s %{_sysconfdir}/sailfish-release %{buildroot}/%{_sysconfdir}/os-release
+ln -s sailfish-release %{buildroot}/%{_sysconfdir}/os-release
 
 cat > %{buildroot}/%{_sysconfdir}/issue <<EOF
 Sailfish OS %{version}.%{_obs_build_count} (%{_version_name})%{_version_appendix}
