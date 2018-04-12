@@ -1,7 +1,27 @@
 #!/bin/bash
 
 RET=0
-PACKAGELISTD=/usr/share/sailfish-version/packagelist.d
+
+synopsis()
+{
+    cat <<END
+Usage: $0 [--dup]
+END
+}
+
+usage()
+{
+    cat <<END
+$(synopsis)
+
+With no option given it prints detailed information about current operating
+system version.
+
+Options:
+    --dup
+        Do system upgrade
+END
+}
 
 case $1 in
     "--dup")
@@ -25,23 +45,7 @@ case $1 in
         fi
         ;;
     "--verify")
-        if [ -d $PACKAGELISTD ] && [[ `ls -A $PACKAGELISTD` ]]; then
-            for i in `cat $PACKAGELISTD/* | sort | uniq`; do
-                rpm -q $i > /dev/null 2>&1
-                if [ $? -ne 0 ]; then
-                    PACKAGE=`echo $i | awk -F - '{ OFS="-"; $NF=""; $(NF-1)=""; print }' | sed 's/-*$//'`
-                    IPACKAGE=`rpm -q $PACKAGE`
-                    echo -e "+ $i\n- $IPACKAGE"
-                    RET=255
-                fi
-            done
-        fi
-        if [ $RET -ne 0 ]; then
-            . /etc/os-release
-            echo
-            echo "One ore more packages are not at the expected version for $PRETTY_NAME"
-            echo "(+ = expected version, - = installed version)"
-        fi
+        echo "$0: The '--verify' option has no effect now and will be completely removed in future" >&2
         ;;
     "")
         if [ -f /etc/os-release ]; then
@@ -51,8 +55,13 @@ case $1 in
             echo "release file does not exist"
         fi
         ;;
+    -h|--help)
+        usage
+        ;;
     *)
-        echo "Invalid option '$1' given, allowed options --dup and --verify."
+        echo "Invalid option '$1' given" >&2
+        synopsis >&2
+        RET=1
         ;;
 esac
 
