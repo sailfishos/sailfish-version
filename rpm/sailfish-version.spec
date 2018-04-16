@@ -75,7 +75,6 @@ Sailfish OS core "%{_version_name}" (%{version}.%{_obs_build_count}) %{_build_fl
 %defattr(-,root,root,-)
 %attr(0644, root, root) %{_sysconfdir}/sailfish-release
 %config %{_sysconfdir}/profile.d/sailfish-version.sh
-%dir %{_datadir}/%{name}/packagelist.d
 %{_bindir}/version
 
 %package variant
@@ -112,7 +111,6 @@ Summary: Sailfish OS %{version}.%{_obs_build_count} (%{_build_flavour})
 
 %install
 echo "Building for %{_build_flavour}"
-mkdir -p %{buildroot}/%{_datadir}/%{name}/packagelist.d
 mkdir -p %{buildroot}/%{_sysconfdir}
 cat > %{buildroot}/%{_sysconfdir}/sailfish-release <<EOF
 NAME="Sailfish OS"
