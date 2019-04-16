@@ -31,7 +31,7 @@ case $1 in
         elif [ $(id -u) == 0 ]; then
             # Developer mode not installed, but running as root - use pkcon
             pkcon refresh
-            MODEL=`ssu model -s | tr '[A-Z]' '[a-z]' | sed 's/ /_/g'`
+            MODEL=`ssu-sysinfo -m | tr '[A-Z]' '[a-z]' | sed 's/ /_/g'`
             pkcon upgrade-system jolla-configuration-$MODEL complete
             echo
             echo "REBOOT NOW, unless you need to investigate update issues, or know what "
