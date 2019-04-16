@@ -60,8 +60,6 @@ BuildRequires: ssu
 BuildRequires: ssu-vendor-data-jolla
 
 Requires: PackageKit
-%{_oneshot_requires_post}
-Requires: oneshot
 Requires(post): ssu
 # mer-release provides /etc/issue* as well
 Obsoletes: mer-release
