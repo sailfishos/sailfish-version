@@ -59,9 +59,6 @@ BuildRequires: rpm
 BuildRequires: ssu
 BuildRequires: ssu-vendor-data-jolla
 
-# PackageKit and ssu-sysinfo is needed by the version script
-Requires: PackageKit
-Requires: ssu-sysinfo
 # mer-release provides /etc/issue* as well
 Obsoletes: mer-release
 

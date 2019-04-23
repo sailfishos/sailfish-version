@@ -28,19 +28,9 @@ case $1 in
         if [ -x /usr/bin/rnd-dist-upgrade ]; then
             # Developer mode installed - can use rnd-dist-upgrade directly
             /usr/bin/rnd-dist-upgrade
-        elif [ $(id -u) == 0 ]; then
-            # Developer mode not installed, but running as root - use pkcon
-            pkcon refresh
-            MODEL=`ssu-sysinfo -m | tr '[A-Z]' '[a-z]' | sed 's/ /_/g'`
-            pkcon upgrade-system jolla-configuration-$MODEL complete
-            echo
-            echo "REBOOT NOW, unless you need to investigate update issues, or know what "
-            echo "you're doing (or both)."
-            echo "All bugs you encounter until reboot are features unless you meet one of the"
-            echo "criteria from the previous sentence."
         else
             echo
-            echo "Enable developer mode to use rnd-dist-upgrade, or run as root."
+            echo "Enable developer mode to use rnd-dist-upgrade."
             echo
         fi
         ;;
