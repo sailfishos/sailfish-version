@@ -1,8 +1,4 @@
-%if 0%{?_obs_build_project:1}
-%define _build_flavour %(echo %{_obs_build_project} | awk -F : '{if ($NF == "testing" || $NF == "release") print $NF; else if ($NF ~ /[0-9]\.[0-9]\.[0-9]/ && NF == 3) print strdevel; else if (NF == 2) print strdevel ;else print strunknown}' strdevel=devel strunknown=unknown)
-%else
-%define _build_flavour unknown
-%endif
+%define _build_flavour %{?qa_stage_name}%{!?qa_stage_name:unknown}
 
 # needs to match the prjconf in pj:tools
 %if 0%{?_forced_sailfish_version_build_count:1}
