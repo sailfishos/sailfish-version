@@ -47,7 +47,6 @@ BuildRequires: buteo-mtp
 BuildRequires: buteo-sync-plugins-qt5
 BuildRequires: connman
 BuildRequires: jolla-common-configurations
-BuildRequires: jolla-firstsession
 BuildRequires: ofono
 BuildRequires: ohm
 BuildRequires: qt5-plugin-bearer-connman
