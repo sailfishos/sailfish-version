@@ -4,5 +4,5 @@ if [ -f /etc/os-release ]; then
     echo "| $PRETTY_NAME"
     echo "'---"
 else
-    echo "Arrr, you're screwed, mate"
+    echo "WARNING: No /etc/os-release found."
 fi
