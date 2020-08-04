@@ -27,6 +27,8 @@ License: Proprietary
 Source: %{name}-%{version}.tar.gz
 Source1: version_name
 BuildArch: noarch
+# Limit only for arm as other architectures are handled with aggregate in OBS
+ExclusiveArch: %{arm}
 
 # UI & Applications
 # We should use patterns, but because of JB#38246 we cant.
