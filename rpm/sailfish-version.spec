@@ -56,6 +56,10 @@ BuildRequires: rpm
 BuildRequires: ssu
 BuildRequires: ssu-vendor-data-jolla
 
+# Rust
+# Temporary untill something depends on it
+BuildRequires: rust
+
 # mer-release provides /etc/issue* as well
 Obsoletes: mer-release
 
