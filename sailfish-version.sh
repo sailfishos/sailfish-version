@@ -1,4 +1,6 @@
-is_login_shell() [ "$0" != "${0#-}" ]
+is_login_shell() {
+    [ "$0" != "${0#-}" ]
+}
 if is_login_shell; then
     if [ -f /etc/os-release ]; then
         . /etc/os-release
