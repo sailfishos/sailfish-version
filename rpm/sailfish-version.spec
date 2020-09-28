@@ -30,31 +30,21 @@ BuildArch: noarch
 # Limit only for arm as other architectures are handled with aggregate in OBS
 ExclusiveArch: %{arm}
 
-# UI & Applications
-# We should use patterns, but because of JB#38246 we cant.
-# Store apps cannot be here because apps repo is above non-oss repository.
+# NOTE: patterns-sailfish-ui depends on patterns-sailfish-core-device which
+# then in turn depends on patterns-sailfish-{core,mw}
+BuildRequires: patterns-sailfish-ui
+
+# Miscellanious things that are adaptation specific selections, which
+# we try to select all here to ensure we build last.
 BuildRequires: csd
-BuildRequires: jolla-keyboard
-BuildRequires: jolla-sessions-qt5
-BuildRequires: lipstick-jolla-home-qt5
+BuildRequires: geoclue-provider-mlsdb
+BuildRequires: jolla-settings-networking-multisim
+BuildRequires: jolla-settings-system-flashlight
+BuildRequires: jolla-settings-system-nfc
+BuildRequires: mapplauncherd-booster-silica-qt5-media
 BuildRequires: patterns-sailfish-applications
 BuildRequires: patterns-sailfish-cellular-apps
 BuildRequires: patterns-sailfish-consumer-generic
-
-# Core & MW
-# We should use patterns, but because of JB#38246 we cant
-BuildRequires: PackageKit
-BuildRequires: alsa-plugins-pulseaudio
-BuildRequires: buteo-mtp
-BuildRequires: buteo-sync-plugins-qt5
-BuildRequires: connman
-BuildRequires: jolla-common-configurations
-BuildRequires: ofono
-BuildRequires: ohm
-BuildRequires: qt5-plugin-bearer-connman
-BuildRequires: rpm
-BuildRequires: ssu
-BuildRequires: ssu-vendor-data-jolla
 
 # Rust
 # Temporary untill something depends on it
