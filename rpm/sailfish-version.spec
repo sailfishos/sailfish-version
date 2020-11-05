@@ -46,10 +46,6 @@ BuildRequires: patterns-sailfish-applications
 BuildRequires: patterns-sailfish-cellular-apps
 BuildRequires: patterns-sailfish-consumer-generic
 
-# Rust
-# Temporary untill something depends on it
-BuildRequires: rust
-
 # mer-release provides /etc/issue* as well
 Obsoletes: mer-release
 
