@@ -21,7 +21,6 @@ Name: sailfish-version
 Version: 0.0.1
 Release: 1
 Summary: Sailfish OS %{version}.%{_obs_build_count} (%{_build_flavour})
-Group: System/Libraries
 URL: https://sailfishos.org/
 License: Proprietary
 Source: %{name}-%{version}.tar.gz
@@ -45,9 +44,6 @@ BuildRequires: mapplauncherd-booster-silica-qt5-media
 BuildRequires: patterns-sailfish-applications
 BuildRequires: patterns-sailfish-cellular-apps
 BuildRequires: patterns-sailfish-consumer-generic
-
-# mer-release provides /etc/issue* as well
-Obsoletes: mer-release
 
 Requires: sailfish-release-variant
 
