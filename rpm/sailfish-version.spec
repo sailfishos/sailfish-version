@@ -27,8 +27,8 @@ License: Proprietary
 Source: %{name}-%{version}.tar.gz
 Source1: version_name
 BuildArch: noarch
-# Limit only for arm as other architectures are handled with aggregate in OBS
-ExclusiveArch: %{arm}
+# Limit only for aarch64 as other architectures are handled with aggregate in OBS
+ExclusiveArch: aarch64
 
 # NOTE: patterns-sailfish-ui depends on patterns-sailfish-core-device which
 # then in turn depends on patterns-sailfish-{core,mw}
