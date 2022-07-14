@@ -21,14 +21,13 @@ Name: sailfish-version
 Version: 0.0.1
 Release: 1
 Summary: Sailfish OS %{version}.%{_obs_build_count} (%{_build_flavour})
-Group: System/Libraries
 URL: https://sailfishos.org/
 License: Proprietary
 Source: %{name}-%{version}.tar.gz
 Source1: version_name
 BuildArch: noarch
-# Limit only for arm as other architectures are handled with aggregate in OBS
-ExclusiveArch: %{arm}
+# Limit only for aarch64 as other architectures are handled with aggregate in OBS
+ExclusiveArch: aarch64
 
 # NOTE: patterns-sailfish-ui depends on patterns-sailfish-core-device which
 # then in turn depends on patterns-sailfish-{core,mw}
@@ -45,9 +44,6 @@ BuildRequires: mapplauncherd-booster-silica-qt5-media
 BuildRequires: patterns-sailfish-applications
 BuildRequires: patterns-sailfish-cellular-apps
 BuildRequires: patterns-sailfish-consumer-generic
-
-# mer-release provides /etc/issue* as well
-Obsoletes: mer-release
 
 Requires: sailfish-release-variant
 
