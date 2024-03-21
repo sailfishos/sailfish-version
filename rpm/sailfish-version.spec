@@ -21,8 +21,8 @@ Name: sailfish-version
 Version: 0.0.1
 Release: 1
 Summary: Sailfish OS %{version}.%{_obs_build_count} (%{_build_flavour})
-URL: https://github.com/sailfishos/sailfish-version
-License: BSD
+URL: https://sailfishos.org/
+License: Proprietary
 Source: %{name}-%{version}.tar.gz
 Source1: version_name
 BuildArch: noarch
@@ -52,7 +52,6 @@ Sailfish OS core "%{_version_name}" (%{version}.%{_obs_build_count}) %{_build_fl
 
 %files
 %defattr(-,root,root,-)
-%license LICENSE.BSD
 %attr(0644, root, root) %{_sysconfdir}/sailfish-release
 %config %{_sysconfdir}/profile.d/sailfish-version.sh
 %{_bindir}/version
