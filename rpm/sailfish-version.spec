@@ -38,7 +38,6 @@ BuildRequires: patterns-sailfish-ui
 BuildRequires: csd
 BuildRequires: geoclue-provider-mlsdb
 BuildRequires: jolla-settings-networking-multisim
-BuildRequires: jolla-settings-system-flashlight
 BuildRequires: jolla-settings-system-nfc
 BuildRequires: mapplauncherd-booster-silica-qt5-media
 BuildRequires: patterns-sailfish-applications
